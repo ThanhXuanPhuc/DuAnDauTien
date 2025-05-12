@@ -11,8 +11,8 @@ namespace TinhToanCoBan.Controllers
 {
     public class RegisterController : Controller
     {
-        private IHostingEnvironment hosting;
-        public RegisterController(IHostingEnvironment _hosting)
+        private IWebHostEnvironment hosting;
+        public RegisterController(IWebHostEnvironment _hosting)
         {
             hosting = _hosting;
         }
@@ -24,13 +24,10 @@ namespace TinhToanCoBan.Controllers
         {
             if (FHinh != null)
             {
-                //xử lý upload
-                // string filename = FHinh.FileName;
                 string filename = Guid.NewGuid().ToString() + Path.GetExtension(FHinh.FileName);
                 string path = Path.Combine(hosting.WebRootPath, "images");
                 using (var filestream = new FileStream(Path.Combine(path, filename), FileMode.Create))
                 {
-                    //sao chép lên server
                     FHinh.CopyTo(filestream);
                 }
                 m.Picture = filename;
